@@ -19,11 +19,11 @@ class CreateLivrosTable extends Migration
             $table->string("categoria");
             $table->string("codigo");
             $table->string("autor");
-            $table->boolean("Ebook");
+            $table->boolean("ebook");
             $table->float('tamanho_do_arquivo')->nullable(true);
+            $table->float('peso')->nullable(true);
             $table->unsignedBigInteger("pessoa_id");
             $table->foreign("pessoa_id")->references("id")->on("pessoas");
-            $table->float('peso')->nullable(true);
             $table->timestamps();
         });
     }
