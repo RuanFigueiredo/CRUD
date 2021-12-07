@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LivroController;
+use App\Http\Controllers\LivrosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,4 +17,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('livros', 'LivroController');
+Route::resource('/livros', 'LivrosController');

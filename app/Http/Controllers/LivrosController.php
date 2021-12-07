@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Livro;
 
-class LivroController extends Controller
+class LivrosController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class LivroController extends Controller
      */
     public function index()
     {
-    $livros = Livro::all();
-        return view('livros.index', ['livros' => $livros]);
+        $entradas = Livro::all();
+        return view('livros.index', ['livros' => $entradas]);
     }
 
     /**
@@ -25,7 +25,7 @@ class LivroController extends Controller
      */
     public function create()
     {
-        //
+        return view('livros.create');
     }
 
     /**
@@ -36,7 +36,16 @@ class LivroController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $body = $request->all();
+        if(array_key_exists('ebook', $body)){
+            $body['ebook']=true;
+        }else{
+            $body['ebook']=false;
+        }
+
+        Livro::create($body);
+        return redirect()->route('livros.index');
+
     }
 
     /**
