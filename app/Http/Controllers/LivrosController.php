@@ -57,7 +57,7 @@ class LivrosController extends Controller
     public function show($id)
     {
         $livro=Livro::findOrFail($id);
-        echo 'nomedolivro:'.$livro->nome;
+        return view('livros.show', ['livro'=>$livro]);
     }
 
     /**
@@ -68,7 +68,8 @@ class LivrosController extends Controller
      */
     public function edit($id)
     {
-        //
+        $livro=Livro::findOrFail($id);
+        return view('livros.edit', ['livro'=>$livro]);
     }
 
     /**
@@ -80,7 +81,17 @@ class LivrosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $body = $request->all();
+        if(array_key_exists('ebook', $body)){
+            $body['ebook']=true;
+        }else{
+            $body['ebook']=false;
+        }
+
+        $livro=Livro::find($id);
+        $livro->fill($body);
+        $livro->save();
+        return redirect()->route('livros.show', $livro->id);
     }
 
     /**
@@ -91,6 +102,8 @@ class LivrosController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $livro=Livro::find($id);
+        $livro->delete();
+        return redirect()->route('livros.index', $livro->id);
     }
 }
